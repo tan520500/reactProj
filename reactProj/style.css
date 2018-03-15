@@ -6,7 +6,10 @@ body {
   ol, ul {
 	padding-left: 30px;
   }
-  
+	
+	/* #root {
+		margin: 200px 500px;
+	} */
   .board-row:after {
 	clear: both;
 	content: "";
@@ -43,6 +46,7 @@ body {
   .game {
 	display: flex;
 	flex-direction: row;
+	margin: 200px 550px;
   }
   
   .game-info {

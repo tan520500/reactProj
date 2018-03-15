@@ -1,72 +1,35 @@
-import React,{ Component } from 'react';
+1click
+2,有人赢了或者格子不为空，return
+3，当前下棋的人是X则空格里填x，否则填o
+4,判断谁赢了，有人赢--return，否则向下执行
+5，改变下棋的人为另一个
 
-class Cell extends Component {
-    constructor(props) {
-        super(props);
-        this.addChessman = this.addChessman.bind(this);
+let player = "x"//x先下棋
+handleClick(e) {
+
+    //1有人赢了或者格子不为空，return
+    if(winnerIs() || !valueOfSquare()) {
+        return;
     }
-    addChessman(e) {
-        const target = e.target
-        this.props.changeTopStage();
-        target.innerHTML = this.props.stateObj.arr[this.props.stateObj.times]
+
+    //2,当前下棋的人是X则空格里填x，否则填o
+    changeInnerHTML(e.target);
+
+    //3有人赢了或者格子不为空，return
+    if(winnerIs() || !valueOfSquare()) {
+        return;
     }
-    componentDidMount() {
-        console.log(this.props.stateObj,111111111)
-    }
-    render() {
-        const styleObj = {
-            display:'inline-block',
-            border:'1px solid #999',
-            width:'40px',
-            height:'40px',
-            lineHeight:'40px',
-            textAlign:'center',
-            fontSize:'30px',
-            WebkitAppearance: 'button',
-            marginRight: '-1px',
-            marginTop: '-1px',
-            background: '#fff',
-            outline:'none',
-            boxSize:'border-box',
-            float:'left',
-        }
-        return (
-            <button style={styleObj} onClick={this.addChessman}>
-                {this.props.content}
-            </button>
-        )
-    }
+};
+
+function winnerIs() {
+    let winner = null;
+    return winner;
+}
+function valueOfSquare() {
+    isEmpety = true;
+    return isEmpety;
 }
 
-class Board extends Component {
-    constructor(props) {
-        super(props);       
-    }
-    componentDidMount() {
-        console.log(this.props.stateObj)
-    }     
-    render() {
-        const styleObj = {
-            display:'inline-block',
-            fontSize:'0',
-            width:'120px',
-            clear:'both',
-        }
-        return (
-            <div style={styleObj}>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                <Cell content={''}  changeTopStage={this.props.handleClick} stateObj={this.props.stateObj}/>
-                
-            </div>
-        )
-    }
+function changeInnerHTML(dom) {
+    dom.innerHTML = player === 'x'?'x':'o';
 }
-
-export default Board
