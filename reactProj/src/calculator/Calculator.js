@@ -64,8 +64,8 @@ class Calculator extends Component {
         if (input === "AC") {
             this.setState({
                 viewValue: '0',
-                num1: '',
-                num2: '',
+                num1: '0',
+                num2: '0',
                 operator: '',
             })
             return;
@@ -73,19 +73,19 @@ class Calculator extends Component {
             this.changeNeg(num1, num2);
         } else if (/\d/.test(Number(input))) {
             if (!operator) {
-                const itp1 = num1 === "0" ?  input : (num1 + input);
+                const itp1 = num1 === "0" ? input : (num1 + input);
                 this.setState({
                     viewValue: itp1,
                     num1: itp1,
                 });
                 return;
             }
-            const itp2 = num2 === "0" ? input : (num2 + input) ;
+            const itp2 = num2 === "0" ? input : (num2 + input);
             this.setState({
                 viewValue: itp2,
                 num2: itp2,
             });
-        } else if (/[%÷x+-]/.test(input)) {
+        } else if (/[%÷x+\-]/.test(input)) {
             this.setState({
                 operator: input
             })
