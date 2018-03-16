@@ -4,10 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         index:'./src/index.js',
-        myConsole:'./src/temp.js'
+        myConsole:'./src/temp.js',
+        calculator:'./src/calculator/Calculator.js'
     },
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].js',
         path:path.resolve(__dirname,'dist'),
     },
     devtool: 'inline-source-map',
@@ -28,18 +29,26 @@ module.exports = {
         ]
     },
     devServer: {
-            contentBase: './dist'
+            contentBase: './dist',
+            port:3000,
           },
     plugins:[
         new HtmlWebpackPlugin({
             title:'index',
             filename:'index.html',
-            template: 'template/index.html',          
+            template: 'template/index.html',
+            chunks: ['index'],          
         }),
         new HtmlWebpackPlugin({
             title:'Output Management',
             filename:'demo.html',
             template: 'template/temp.html'
+        }),
+        new HtmlWebpackPlugin({
+            title:'iOS Calculator',
+            filename:'calculator.html',
+            template:'template/calculator.html',
+            chunks: ['calculator'],
         })
     ],
 };

@@ -141,7 +141,7 @@
 
 //1：以下是temp.js修改后的代码，修改了之前直接操作history数组的元素（const item = {squares:[]};item.squares[index] = sth），
 //导致每一次点击操作的都是同一个数组；2：修复了调用renderSquare时传入的index从1开始的bug，导致index变大，从而点击后面两个格子时数组长度变长
-import React , { Component } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import '../style.css';
@@ -157,25 +157,25 @@ class Board extends Component {
     return <Square value={i} handleClick={this.props.handleClick} squares={this.props.squares} />
   }
   render() {
-    return(
+    return (
       <div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
-          
+
         </div>
         <div className="board-row">
           {this.renderSquare(3)}
           {this.renderSquare(4)}
           {this.renderSquare(5)}
-          
+
         </div>
         <div className="board-row">
-        {this.renderSquare(6)}
+          {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
-         
+
         </div>
       </div>
     )
@@ -187,70 +187,73 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      history:[
+      history: [
         {
-        squares:Array(9).fill(null)
-      }
-    ],
-      xIsNext:false,
-      stepNumber:0,
+          squares: Array(9).fill(null)
+        }
+      ],
+      xIsNext: false,
+      stepNumber: 0,
     }
   }
   handleClick(index) {
-    const history = this.state.history.slice(0,this.state.stepNumber+1);   
-    const squares = history[history.length-1].squares.slice();
-    
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const squares = history[history.length - 1].squares.slice();
 
 
-    if(calculateWinner(squares) || squares[index]) {
+
+    if (calculateWinner(squares) || squares[index]) {
       return;
     }
-    squares[index] =  this.state.xIsNext?'o':'x';
-    this.setState((state) =>{
-     return {
-      history:history.concat([
-        {
-          squares:squares
-        }
-      ]),
-      xIsNext:!state.xIsNext,
-      stepNumber:state.stepNumber+1,
-     }
+    squares[index] = this.state.xIsNext ? 'o' : 'x';
+    this.setState((state) => {
+      return {
+        history: history.concat([
+          {
+            squares: squares
+          }
+        ]),
+        xIsNext: !state.xIsNext,
+        stepNumber: state.stepNumber + 1,
+      }
     })
   }
-  
+
   render() {
-    const {history,xIsNext,stepNumber} = this.state;
+    const { history, xIsNext, stepNumber } = this.state;
     const squares = history[stepNumber].squares;
     let status;
     const winner = calculateWinner(squares)
-    if(winner) {
+    if (winner) {
       status = `the winner is ${winner}`;
-    }else {
-      status = ` Next player:${xIsNext?'o':'x'}`;
-    }   
-    return(
-      <div>        
-          <Board 
-            handleClick={this.handleClick.bind(this)}
-            squares={squares} />
-          <div className="game-info">
-            <p>{status}</p>
-            <div>
-              {
-                history.map((h,index) =>{
-                  const desc = index?`move to step: ${index}`:`start the game`;
-                  const step = <p key={index.toString()}  onClick={(e) =>{
+    } else {
+      status = ` Next player:${xIsNext ? 'o' : 'x'}`;
+    }
+    return (
+      <div>
+        <Board
+          handleClick={this.handleClick.bind(this)}
+          squares={squares} />
+        <div className="game-info">
+          <p>{status}</p>
+          <div>
+            {
+              history.map((h, index) => {
+                const desc = index ? `move to step: ${index}` : `start the game`;
+                const step = <p key={index.toString()} data-index={index}
+                  onClick={(e) => {
+                    const itemIndex = e.target.dataset.index;
+                    console.log(itemIndex)
                     this.setState({
-                      stepNumber:index,
-                      xIsNext:index % 2 === 0,
+                      stepNumber: index,
+                      xIsNext: index % 2 === 0,
                     })
                   }}>{desc}</p>
-                  return step
-                })
-              }
-            </div>
+                return step
+              })
+            }
           </div>
+        </div>
       </div>
     )
   }
@@ -272,11 +275,11 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6]
   ]
-  
-  for(let i=0;i<winArr.length;i++) {
-    const [a,b,c] = winArr[i];
-    if(squares[a]&&squares[a] ===squares[b]&&squares[a]===squares[c]){
-      console.log(squares[a],11111111)
+
+  for (let i = 0; i < winArr.length; i++) {
+    const [a, b, c] = winArr[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      console.log(squares[a], 11111111)
       return squares[a];
     }
   }

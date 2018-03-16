@@ -1,0 +1,31 @@
+.cell {
+    background-color: #e0e0e0;
+    width:25%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    border: none;   
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    font-size: 30px;
+    float: left;    
+}
+.width50 {
+    width:50%;
+}
+.yellow {
+    background-color: #f5923e;
+}
+.clearfix::after {
+    content: '';
+    display: table-cell;
+    clear: both;
+}
+.panel {
+    border-left:1px solid black;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box; 
+}
