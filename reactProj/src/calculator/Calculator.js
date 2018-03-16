@@ -13,7 +13,7 @@ class Calculator extends Component {
         this.toggleNeg = this.toggleNeg.bind(this);
         this.changeNeg = this.changeNeg.bind(this);
         this.state = {
-            viewValue: 0,
+            viewValue: '0',
             num1: '0',
             num2: '0',
             operator: '',
@@ -63,7 +63,7 @@ class Calculator extends Component {
         const { viewValue, num1, num2, operator } = state;
         if (input === "AC") {
             this.setState({
-                viewValue: 0,
+                viewValue: '0',
                 num1: '',
                 num2: '',
                 operator: '',
@@ -73,29 +73,30 @@ class Calculator extends Component {
             this.changeNeg(num1, num2);
         } else if (/\d/.test(Number(input))) {
             if (!operator) {
+                const itp1 = num1 === "0" ?  input : (num1 + input);
                 this.setState({
-                    viewValue: num1 + input,
-                    num1: num1 + input,
+                    viewValue: itp1,
+                    num1: itp1,
                 });
                 return;
             }
+            const itp2 = num2 === "0" ? input : (num2 + input) ;
             this.setState({
-                viewValue: num2 + input,
-                num2: num2 + input,
+                viewValue: itp2,
+                num2: itp2,
             });
         } else if (/[%÷x+-]/.test(input)) {
             this.setState({
                 operator: input
             })
-            console.log(input)
         } else if (input === ".") {
             this.handleDot(input, num1, num2, operator);
         } else if (input === "=") {
-            this.calculate(num1,num2,operator);
+            this.calculate(num1, num2, operator);
         }
     }
 
-    calculate(numIpt1,numIpt2,operator) {
+    calculate(numIpt1, numIpt2, operator) {
         if (numIpt1 && numIpt1 && operator) {
             const num1 = Number(numIpt1);
             const num2 = Number(numIpt2);
@@ -147,6 +148,7 @@ class Calculator extends Component {
                     break;
             }
         }
+        return false;
     }
 
     handleClick(value) {
