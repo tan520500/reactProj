@@ -5,7 +5,8 @@ module.exports = {
     entry: {
         index:'./src/index.js',
         myConsole:'./src/temp.js',
-        calculator:'./src/calculator/Calculator.js'
+        calculator:'./src/calculator/Calculator.js',
+        routerDemo:'./src/routerDemo/routerDemo.js',
     },
     output: {
         filename: '[name].js',
@@ -49,6 +50,12 @@ module.exports = {
             filename:'calculator.html',
             template:'template/calculator.html',
             chunks: ['calculator'],
-        })
+        }),
+        new HtmlWebpackPlugin({
+            title:'react-router-dom demo',
+            filename:'routerDemo.html',
+            template:'template/routerDemo.html',
+            chunks: ['routerDemo'],
+        }),
     ],
 };
